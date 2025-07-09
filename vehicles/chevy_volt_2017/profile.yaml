@@ -1,0 +1,21 @@
+vehicle:
+  make: Chevy
+  model: Volt
+  year: 2017
+
+commands:
+  remote_start:
+    id: 0x1D0
+    data: [0x00, 0x00, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00]
+    description: Triggers remote start
+
+  lock_doors:
+    id: 0x240
+    data: [0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+    description: Locks all doors
+
+  battery_level:
+    id: 0x1A0
+    mode: read
+    bytes: [2, 3]
+    decode: "lambda data: (data[2] << 8) | data[3]"

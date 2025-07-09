@@ -1,3 +1,9 @@
+#Project Specific Files
+mqtt_config.yaml
+system_config.yaml
+
+#Preloaded Python gitignore
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
