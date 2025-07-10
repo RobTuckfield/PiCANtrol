@@ -7,6 +7,7 @@ class MQTTClient:
         with open(system_config_path) as f:
             system_cfg = yaml.safe_load(f)
             self.vehicle_id = system_cfg.get("vehicle_id")
+            self.vehicle_profile = system_cfg.get("vehicle_profile")
 
         with open(mqtt_config_path) as f:
             mqtt_cfg = yaml.safe_load(f)
@@ -30,6 +31,7 @@ class MQTTClient:
         self.client.on_message = self.on_message
 
         self.profile = self.load_vehicle_profile()
+        #print(self.profile)
         
     def load_vehicle_profile(self):
         path = os.path.join("vehicles", self.vehicle_profile, "profile.yaml")
@@ -51,7 +53,9 @@ class MQTTClient:
     def on_message(self, client, userdata, msg):
         print(f"[MQTT] Received on {msg.topic}: {msg.payload.decode()}")
         command = msg.topic.split('/')[-1]
+        print(command)
         command_def = self.profile['commands'].get(command)
+        print(command_def)
 
         if not command_def:
             print(f"[ERROR] Command not valid for this vehicle: {command}")
